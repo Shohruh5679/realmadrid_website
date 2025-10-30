@@ -1,0 +1,86 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}Real Madrid Admin | {{ title }}{% endblock %}
+
+{% block extrastyle %}
+<style>
+    body {
+        background: url("{% static 'images/background.jpg' %}") no-repeat center center fixed;
+        background-size: cover;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    #header {
+        background-color: rgba(0, 0, 0, 0.8);
+        border-bottom: 3px solid gold;
+        color: gold;
+        text-align: center;
+        padding: 20px 0;
+    }
+
+    #header h1 a {
+        color: gold !important;
+        font-size: 28px;
+        font-weight: bold;
+        text-shadow: 0 0 10px white;
+    }
+
+    #content {
+        background: rgba(0, 0, 0, 0.7);
+        color: white;
+        border-radius: 15px;
+        padding: 20px;
+        margin: 20px;
+        box-shadow: 0 0 25px rgba(255, 215, 0, 0.3);
+    }
+
+    a, a:visited {
+        color: #FFD700;
+    }
+
+    a:hover {
+        color: white;
+        text-decoration: underline;
+    }
+
+    .module caption {
+        background: rgba(255, 215, 0, 0.2);
+        color: gold;
+        font-weight: bold;
+        border-bottom: 2px solid gold;
+    }
+
+    .submit-row input {
+        background-color: gold !important;
+        color: black !important;
+        font-weight: bold;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .submit-row input:hover {
+        background-color: white !important;
+        color: black !important;
+        transform: scale(1.05);
+    }
+
+    #footer {
+        background: rgba(0, 0, 0, 0.8);
+        color: #ccc;
+        text-align: center;
+        padding: 10px;
+        border-top: 2px solid gold;
+    }
+</style>
+{% endblock %}
+
+{% block branding %}
+<h1 id="site-name">
+    ⚽ <a href="/admin/">REAL MADRID ADMIN PANEL</a> 👑
+</h1>
+{% endblock %}
+
+{% block nav-global %}
+<a href="/" style="color: gold; font-weight: bold;">← Saytga qaytish</a>
+{% endblock %}

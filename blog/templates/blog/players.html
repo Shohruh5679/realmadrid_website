@@ -1,0 +1,181 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Madrid Futbolchilari</title>
+    <link rel="icon" href="{% static 'images/logo.png' %}">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url("{% static 'images/background.jpg' %}") no-repeat center center/cover;
+            color: white;
+            margin: 0;
+            text-align: center;
+            position: relative;
+            overflow-x: hidden;
+            animation: bgMove 40s linear infinite;
+        }
+
+        /* Fonni sekin harakatlantirish */
+        @keyframes bgMove {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        /* qorong‘i fon effekti */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 0;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        header, main, footer {
+            position: relative;
+            z-index: 1;
+        }
+
+        header {
+            background: rgba(255, 215, 0, 0.08);
+            padding: 25px 0;
+            animation: fadeInDown 1.5s ease-in-out;
+        }
+
+        header img {
+            width: 140px;
+            margin-top: 10px;
+            border-radius: 12px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+            animation: pulse 4s infinite ease-in-out;
+        }
+
+        header img:hover {
+            transform: scale(1.07);
+            box-shadow: 0 0 35px gold;
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #FFD700;
+            font-weight: bold;
+            font-size: 18px;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+        }
+
+        nav a:hover {
+            color: white;
+            text-shadow: 0 0 10px gold;
+        }
+
+        h1 {
+            margin-top: 25px;
+            font-size: 34px;
+            text-shadow: 0 0 15px rgba(255,255,255,0.3);
+            animation: fadeInUp 1.5s ease-in-out;
+        }
+
+        .player {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            margin: 25px auto;
+            padding: 20px;
+            width: 60%;
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.5);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            animation: fadeInUp 1.5s ease-in-out;
+        }
+
+        .player:hover {
+            transform: scale(1.04);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.4);
+        }
+
+        .player img {
+            border-radius: 15px;
+            margin-top: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease;
+        }
+
+        .player img:hover {
+            transform: scale(1.06);
+        }
+
+        footer {
+            margin-top: 60px;
+            background-color: rgba(0, 0, 0, 0.85);
+            padding: 15px;
+            color: #ccc;
+            font-size: 14px;
+            border-top: 2px solid gold;
+            animation: fadeIn 2.5s ease-in-out;
+        }
+
+        /* Animatsiyalar */
+        @keyframes fadeIn {
+            from { opacity: 0; } to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="{% static 'images/logo.png' %}" alt="Real Madrid">
+        <nav>
+            <a href="/">🏠 Bosh sahifa</a>
+            <a href="/trophies/">🏆 Sovrinlar</a>
+            <a href="/players/">👟 Futbolchilar</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>👟 Real Madrid Futbolchilari 👟</h1>
+
+        {% if players %}
+            {% for player in players %}
+                <div class="player">
+                    <h2>{{ player.name }}</h2>
+                    <p><strong>Pozitsiyasi:</strong> {{ player.position }}</p>
+                    {% if player.image %}
+                        <img src="{{ player.image.url }}" alt="{{ player.name }}" width="180">
+                    {% endif %}
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>Hozircha futbolchilar ro‘yxati yo‘q 😅</p>
+        {% endif %}
+    </main>
+
+    <footer>
+        © 2025 Real Madrid Blog | Ishlab chiqdi: Shohruh Yovbosarov
+    </footer>
+
+</body>
+</html>

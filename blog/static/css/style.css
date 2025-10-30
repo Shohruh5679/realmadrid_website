@@ -1,0 +1,120 @@
+/* === UMUMIY STIL === */
+body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background-color: #f8f9fa;
+    margin: 0;
+    padding: 0;
+    color: #222;
+}
+
+/* === NAVBAR === */
+.navbar {
+    background-color: #0b1b4c;
+    color: white;
+    padding: 15px 0;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.navbar .container {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.navbar .logo {
+    height: 55px;
+}
+
+.navbar nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 25px;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.navbar nav a:hover {
+    color: #ffd700; /* oltin rang */
+}
+
+/* === ASOSIY KONTENT === */
+.content {
+    width: 90%;
+    margin: 40px auto;
+    text-align: center;
+}
+
+/* === Sarlavhalar === */
+h1 {
+    color: #0b1b4c;
+    border-bottom: 3px solid #ffd700;
+    display: inline-block;
+    padding-bottom: 10px;
+    margin-bottom: 30px;
+}
+
+/* === NEWS SECTION === */
+.news-section, .trophy-section, .player-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.news-card, .trophy-card, .player-card {
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    padding: 20px;
+    transition: transform 0.3s ease;
+}
+
+.news-card:hover, .trophy-card:hover, .player-card:hover {
+    transform: translateY(-5px);
+}
+
+.news-card img, .trophy-card img, .player-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+/* === FUTBOLCHI KARTASI === */
+.player-card h2 {
+    margin-top: 10px;
+    color: #0b1b4c;
+}
+
+.player-card p {
+    color: #555;
+    font-style: italic;
+}
+
+/* === FOOTER === */
+footer {
+    background-color: #0b1b4c;
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 60px;
+    font-size: 14px;
+}
+
+/* === RESPONSIVE (mobil uchun) === */
+@media (max-width: 600px) {
+    .navbar .container {
+        flex-direction: column;
+    }
+
+    .navbar nav a {
+        display: block;
+        margin: 10px 0;
+    }
+
+    h1 {
+        font-size: 22px;
+    }
+}
+

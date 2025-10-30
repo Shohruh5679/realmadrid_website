@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Madrid Blog</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <header class="navbar">
+        <div class="container">
+            <img src="{% static 'images/logo.png' %}" alt="Real Madrid Logo" class="logo">
+            <nav>
+                <a href="{% url 'home' %}">🏠 Bosh sahifa</a>
+                <a href="{% url 'trophies' %}">🏆 Sovrinlar</a>
+                <a href="{% url 'players' %}">👟 Futbolchilar</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="content">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>© 2025 Real Madrid Blog | Ishlab chiqdi:Shohruh Yovbosarov  </p>
+    </footer>
+</body>
+</html>
+

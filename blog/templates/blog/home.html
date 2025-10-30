@@ -1,0 +1,180 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Madrid Blog</title>
+    <link rel="icon" href="{% static 'images/logo.png' %}">
+    <style>
+        /* 🔥 Harakatlanadigan fon */
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: url("{% static 'images/background.jpg' %}") no-repeat center center/cover;
+            color: white;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            position: relative;
+            animation: bgMove 30s linear infinite;
+        }
+
+        /* Fonni asta siljitish */
+        @keyframes bgMove {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 0%; }
+        }
+
+        /* qorong‘ilik effekti */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 0;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        header, main, footer {
+            position: relative;
+            z-index: 1;
+            animation: fadeInUp 1.5s ease-in-out;
+        }
+
+        /* 🔥 Logo animatsiyasi */
+        header {
+            padding: 30px 0;
+        }
+
+        header img {
+            width: 160px;
+            height: auto;
+            border-radius: 20px;
+            transition: transform 0.4s ease;
+            animation: pulse 3s infinite ease-in-out;
+            box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        nav {
+            margin-top: 20px;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: gold;
+            font-weight: bold;
+            margin: 0 15px;
+            font-size: 1.1em;
+            transition: color 0.3s, text-shadow 0.3s;
+        }
+
+        nav a:hover {
+            color: white;
+            text-shadow: 0 0 10px gold;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-top: 30px;
+            text-shadow: 0 0 15px rgba(255,255,255,0.4);
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px gold; }
+            100% { text-shadow: 0 0 25px gold; }
+        }
+
+        .news {
+            margin-top: 40px;
+            animation: fadeIn 2s ease-in-out;
+        }
+
+        .news img {
+            border-radius: 15px;
+            margin: 15px 0;
+            box-shadow: 0 0 25px rgba(0,0,0,0.5);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .news img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(255, 215, 0, 0.4);
+        }
+
+        .news p {
+            font-size: 1.1em;
+            color: #f0f0f0;
+            width: 80%;
+            margin: 0 auto 30px;
+            line-height: 1.6;
+            animation: fadeInUp 2s ease-in-out;
+        }
+
+        footer {
+            margin-top: 60px;
+            padding: 20px;
+            background-color: rgba(28, 37, 65, 0.85);
+            font-size: 0.9em;
+            border-top: 2px solid gold;
+            animation: fadeIn 2.5s ease-in-out;
+        }
+
+        /* 🔥 Animatsiyalar */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <img src="{% static 'images/logo.png' %}" alt="Real Madrid">
+        <nav>
+            <a href="/">🏠 Bosh sahifa</a>
+            <a href="/trophies/">🏆 Sovrinlar</a>
+            <a href="/players/">⚽ Futbolchilar</a>
+        </nav>
+    </header>
+
+    <main>
+        <h1>⚽ REAL MADRID YANGILIKLARI ⚽</h1>
+
+        <div class="news">
+            {% if news_list %}
+                {% for news in news_list %}
+                    <h2>{{ news.title }}</h2>
+                    {% if news.image %}
+                        <img src="{{ news.image.url }}" alt="{{ news.title }}" width="400"><br>
+                    {% endif %}
+                    <p>{{ news.content }}</p>
+                    <hr>
+                {% endfor %}
+            {% else %}
+                <p>Hozircha yangiliklar mavjud emas 😅</p>
+            {% endif %}
+        </div>
+    </main>
+
+    <footer>
+        © 2025 Real Madrid Blog | Ishlab chiqdi: Shohruh Yovbosarov
+    </footer>
+
+</body>
+</html>
+
+
+
