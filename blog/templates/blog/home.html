@@ -16,17 +16,16 @@
             padding: 0;
             text-align: center;
             position: relative;
-            animation: bgMove 30s linear infinite;
+            animation: bgMove 40s linear infinite;
+            overflow-x: hidden;
         }
 
-        /* Fonni asta siljitish */
         @keyframes bgMove {
             0% { background-position: 0% 0%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 0%; }
         }
 
-        /* qorong‘ilik effekti */
         body::before {
             content: "";
             position: absolute;
@@ -34,18 +33,56 @@
             width: 100%; height: 100%;
             background-color: rgba(0, 0, 0, 0.6);
             z-index: 0;
-            animation: fadeIn 2s ease-in-out;
         }
 
         header, main, footer {
             position: relative;
             z-index: 1;
-            animation: fadeInUp 1.5s ease-in-out;
         }
 
-        /* 🔥 Logo animatsiyasi */
+        /* 🔥 Loader sahifa */
+        #loader {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: radial-gradient(circle at center, #0b0b0b 30%, #000 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            z-index: 9999;
+            transition: opacity 1s ease, visibility 1s ease;
+        }
+
+        .loader-logo {
+            width: 130px;
+            height: 130px;
+            background: url("{% static 'images/logo.png' %}") no-repeat center center/contain;
+            animation: pulseLogo 2s infinite ease-in-out;
+        }
+
+        .loader-text {
+            margin-top: 20px;
+            font-size: 22px;
+            color: gold;
+            letter-spacing: 2px;
+            animation: fadeInText 2s infinite alternate;
+        }
+
+        @keyframes pulseLogo {
+            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px gold); }
+            50% { transform: scale(1.15); filter: drop-shadow(0 0 25px #fff700); }
+        }
+
+        @keyframes fadeInText {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        /* 🔥 Header */
         header {
             padding: 30px 0;
+            animation: fadeInDown 1.5s ease-in-out;
         }
 
         header img {
@@ -80,6 +117,7 @@
             text-shadow: 0 0 10px gold;
         }
 
+        /* 🔥 Asosiy matn */
         h1 {
             font-size: 2.5em;
             margin-top: 30px;
@@ -115,32 +153,33 @@
             width: 80%;
             margin: 0 auto 30px;
             line-height: 1.6;
-            animation: fadeInUp 2s ease-in-out;
         }
 
+        /* 🔥 Footer */
         footer {
             margin-top: 60px;
             padding: 20px;
             background-color: rgba(28, 37, 65, 0.85);
             font-size: 0.9em;
             border-top: 2px solid gold;
-            animation: fadeIn 2.5s ease-in-out;
+            animation: fadeInUp 1.5s ease-in-out;
         }
 
         /* 🔥 Animatsiyalar */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+        @keyframes fadeInUp { from {opacity: 0; transform: translateY(20px);} to {opacity: 1; transform: translateY(0);} }
+        @keyframes fadeInDown { from {opacity: 0; transform: translateY(-20px);} to {opacity: 1; transform: translateY(0);} }
     </style>
 </head>
 <body>
 
+    <!-- 🌀 Yuklanish -->
+    <div id="loader">
+        <div class="loader-logo"></div>
+        <div class="loader-text">Real Madrid yuklanmoqda...</div>
+    </div>
+
+    <!-- 🏆 Asosiy kontent -->
     <header>
         <img src="{% static 'images/logo.png' %}" alt="Real Madrid">
         <nav>
@@ -173,8 +212,66 @@
         © 2025 Real Madrid Blog | Ishlab chiqdi: Shohruh Yovbosarov
     </footer>
 
+    <!-- 🎵 Musiqa (Hala Madrid) -->
+    <audio id="halaMadrid" preload="auto">
+        <source src="{% static 'audio/hala_madrid.mp3' %}" type="audio/mpeg">
+    </audio>
+
+    <!-- 🔥 JS -->
+    <script>
+        window.addEventListener("load", () => {
+            const loader = document.getElementById("loader");
+            const music = document.getElementById("halaMadrid");
+
+            setTimeout(() => {
+                loader.style.opacity = "0";
+                loader.style.visibility = "hidden";
+                music.play().catch(err => console.log("Ovoz autoplay to‘silgan:", err));
+            }, 2500);
+        });
+    </script>
+<!-- Audio qo‘shiq -->
+<audio id="bg-music" loop>
+    <source src="{% static 'audio/hala_madrid.mp3' %}" type="audio/mpeg">
+    Sizning brauzeringiz audio qo‘llab-quvvatlamaydi.
+</audio>
+
+<!-- Tugma -->
+<div id="music-btn-container" style="position: fixed; bottom: 30px; right: 30px; z-index: 9999;">
+    <button id="music-btn" style="
+        background: #1db954; 
+        color: white; 
+        border: none; 
+        border-radius: 50%;
+        width: 60px; 
+        height: 60px; 
+        font-size: 22px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        cursor: pointer;
+        transition: transform 0.3s ease;
+    ">
+        ▶
+    </button>
+</div>
+
+<script>
+    const btn = document.getElementById('music-btn');
+    const audio = document.getElementById('bg-music');
+    let playing = false;
+
+    btn.addEventListener('click', () => {
+        if (!playing) {
+            audio.play();
+            btn.textContent = '⏸';
+            btn.style.transform = 'scale(1.1)';
+        } else {
+            audio.pause();
+            btn.textContent = '▶';
+            btn.style.transform = 'scale(1)';
+        }
+        playing = !playing;
+    });
+</script>
+
 </body>
 </html>
-
-
-
